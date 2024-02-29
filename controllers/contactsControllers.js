@@ -1,3 +1,4 @@
+// Імпорт функцій
 import {
   addContact,
   getContactById,
@@ -6,7 +7,7 @@ import {
   updateById,
 } from "../services/contactsServices.js";
 import HttpError from "../helpers/HttpError.js";
-
+// Отримання листу усіх контактів
 export const getAllContacts = async (req, res, next) => {
   try {
     const result = await listContacts();
@@ -15,7 +16,7 @@ export const getAllContacts = async (req, res, next) => {
     next(error);
   }
 };
-
+// Отримання контакту по ID
 export const getContact = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -28,7 +29,7 @@ export const getContact = async (req, res, next) => {
     next(error);
   }
 };
-
+// Видалення контакту
 export const deleteContact = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -41,7 +42,7 @@ export const deleteContact = async (req, res, next) => {
     next(error);
   }
 };
-
+// Створення контакту
 export const createContact = async (req, res, next) => {
   try {
     const result = await addContact(req.body);
@@ -50,7 +51,7 @@ export const createContact = async (req, res, next) => {
     next(error);
   }
 };
-
+// Оновлення контакту
 export const updateContact = async (req, res, next) => {
   try {
     const { id } = req.params;

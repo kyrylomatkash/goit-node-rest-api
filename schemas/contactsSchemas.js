@@ -1,16 +1,17 @@
+// Імпорт бібліотек
 import Joi from "joi";
-
+// Схема валідації полів контакту
 export const createContactSchema = Joi.object({
   name: Joi.string().required(),
   email: Joi.string().required(),
   phone: Joi.string().required(),
 });
-
+// Схема валідації полів контакту при оновлені
 export const updateContactSchema = Joi.object({
   name: Joi.string().alphanum().min(3).max(30),
   email: Joi.string().email({
     minDomainSegments: 2,
-    tlds: { allow: ["com", "net"] },
+    tlds: { allow: ["com", "net", "ua"] },
   }),
   phone: Joi.string().min(3).max(30),
 })
