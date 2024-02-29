@@ -54,15 +54,15 @@
     "phone": "(748) 206-2688"
   },
   {
-    "id": "a481e4a1b3b53c34d2278c79003e94b1",
-    "name": "Kyrylo",
-    "email": "hey@gmail.com",
-    "phone": "+380123456789"
-  },
-  {
     "id": "ed3c3563fd0f11c4219cc175a522819d",
     "name": "1",
     "email": "1",
     "phone": "1"
+  },
+  {
+    "id": "653d5206cf9e17305fc11da3ccf472dc",
+    "name": "Kyrylo",
+    "email": "2@2.com",
+    "phone": "222"
   }
 ]
