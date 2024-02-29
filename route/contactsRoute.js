@@ -1,3 +1,4 @@
+// Імпорт бібліотек і функцій
 import express from "express";
 import {
   getAllContacts,
@@ -11,17 +12,17 @@ import {
   createContactSchema,
   updateContactSchema,
 } from "../schemas/contactsSchemas.js";
-
+// Роутинг для API
 const contactsRoute = express.Router();
 
-contactsRouter.get("/", getAllContacts);
+contactsRoute.get("/", getAllContacts);
 
-contactsRouter.get("/:id", getContact);
+contactsRoute.get("/:id", getContact);
 
-contactsRouter.delete("/:id", deleteContact);
+contactsRoute.delete("/:id", deleteContact);
 
-contactsRouter.post("/", validateBody(createContactSchema), createContact);
+contactsRoute.post("/", validateBody(createContactSchema), createContact);
 
-contactsRouter.put("/:id", validateBody(updateContactSchema), updateContact);
-
+contactsRoute.put("/:id", validateBody(updateContactSchema), updateContact);
+// Експорт
 export default contactsRoute;
