@@ -64,5 +64,5 @@ async function addContact(contactData) {
 function generateId() {
   return randomBytes(16).toString("hex");
 }
-
+// Експорт функцій
 export { listContacts, getContactById, removeContact, addContact, updateById };
