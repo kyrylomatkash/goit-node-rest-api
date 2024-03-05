@@ -1,12 +1,13 @@
 // Імпорт функцій
+import HttpError from "../helpers/HttpError.js";
 import {
   addContact,
   getContactById,
   listContacts,
   removeContact,
+  updateContactFavoriteStatus,
   updateById,
 } from "../services/contactsServices.js";
-import HttpError from "../helpers/HttpError.js";
 // Отримання листу усіх контактів
 export const getAllContacts = async (req, res, next) => {
   try {
@@ -34,6 +35,7 @@ export const deleteContact = async (req, res, next) => {
   try {
     const { id } = req.params;
     const result = await removeContact(id);
+
     if (!result) {
       throw HttpError(404);
     }
@@ -46,6 +48,9 @@ export const deleteContact = async (req, res, next) => {
 export const createContact = async (req, res, next) => {
   try {
     const result = await addContact(req.body);
+    if (!result) {
+      throw HttpError(404);
+    }
     res.status(201).json(result);
   } catch (error) {
     next(error);
@@ -68,6 +73,21 @@ export const updateContact = async (req, res, next) => {
     if (!result) {
       throw HttpError(404);
     }
+    res.status(200).json(result);
+  } catch (error) {
+    next(error);
+  }
+};
+// Оновлення статусу контакту для додавання в "Вибране"
+export const updateContactStatus = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const result = await updateContactFavoriteStatus(id, req.body);
+
+    if (!result) {
+      throw HttpError(404);
+    }
+
     res.status(200).json(result);
   } catch (error) {
     next(error);
