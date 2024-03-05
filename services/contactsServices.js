@@ -1,5 +1,5 @@
 // Імпорт моделі
-import { Contact } from "../models/contact.js";
+import { Contact } from "../models/contactModel.js";
 // Читання списку контактів
 async function listContacts() {
   const data = await Contact.find();
