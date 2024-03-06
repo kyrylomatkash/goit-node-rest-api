@@ -60,16 +60,7 @@ export const createContact = async (req, res, next) => {
 export const updateContact = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const { name, email, phone } = req.body;
-    const resultId = await getContactById(id);
-    if (!resultId) {
-      throw HttpError(404);
-    }
-    const result = await updateById(id, {
-      name: name || resultId.name,
-      email: email || resultId.email,
-      phone: phone || resultId.phone,
-    });
+    const result = await updateById(id, req.body);
     if (!result) {
       throw HttpError(404);
     }
@@ -78,7 +69,7 @@ export const updateContact = async (req, res, next) => {
     next(error);
   }
 };
-// Оновлення статусу контакту для додавання в "Вибране"
+// Оновлення статусу контакту для додавання до вибраних
 export const updateContactStatus = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -87,7 +78,6 @@ export const updateContactStatus = async (req, res, next) => {
     if (!result) {
       throw HttpError(404);
     }
-
     res.status(200).json(result);
   } catch (error) {
     next(error);
