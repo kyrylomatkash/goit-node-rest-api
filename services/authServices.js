@@ -17,7 +17,7 @@ async function userSignUp(data) {
     throw new Error("Email already in use", { status: 409 });
   }
 }
-// Вхід у обліковий запис
+// Вхід користувача
 async function userSignIn(data) {
   const { email, password } = data;
   const user = await User.findOne({ email });
@@ -40,7 +40,7 @@ async function userSignIn(data) {
   await User.findByIdAndUpdate(user.id, { token });
   return result;
 }
-// Вихід з облікового запису
+// Вихід користувача
 async function userLogOut(_id) {
   await User.findByIdAndUpdate(_id, { token: null });
 }
