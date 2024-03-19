@@ -5,6 +5,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import "dotenv/config";
 import contactsRoute from "./route/contactsRoute.js";
+import authRoute from "./route/authRoute.js";
 // Зміна застосунку
 const app = express();
 // Підключення до бази даних
@@ -26,8 +27,9 @@ mongoose
 app.use(morgan("tiny"));
 app.use(cors());
 app.use(express.json());
-
+// Роути
 app.use("/api/contacts", contactsRoute);
+app.use("/users", authRoute);
 // Показ помилок статусу відповіді
 app.use((_, res) => {
   res.status(404).json({ message: "Route not found" });
