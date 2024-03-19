@@ -1,5 +1,5 @@
 // Імпорт моделі і бібліотек
-import { User } from "../models/userModel";
+import { User } from "../models/userModel.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import "dotenv/config";

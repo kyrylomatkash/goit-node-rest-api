@@ -15,19 +15,26 @@ import {
   updateFavoriteSchema,
 } from "../schemas/contactsSchemas.js";
 import isValidObjId from "../helpers/IDvalidate.js";
+import { authToken } from "../helpers/authToken.js";
 // Роутинг для API
 const contactsRoute = express.Router();
 
-contactsRoute.get("/", getAllContacts);
+contactsRoute.get("/", authToken, getAllContacts);
 
-contactsRoute.get("/:id", isValidObjId, getContact);
+contactsRoute.get("/:id", authToken, isValidObjId, getContact);
 
-contactsRoute.delete("/:id", isValidObjId, deleteContact);
+contactsRoute.delete("/:id", authToken, isValidObjId, deleteContact);
 
-contactsRoute.post("/", validateBody(createContactSchema), createContact);
+contactsRoute.post(
+  "/",
+  authToken,
+  validateBody(createContactSchema),
+  createContact
+);
 
 contactsRoute.put(
   "/:id",
+  authToken,
   isValidObjId,
   validateBody(updateContactSchema),
   updateContact
@@ -35,6 +42,7 @@ contactsRoute.put(
 
 contactsRoute.patch(
   "/:id/favorite",
+  authToken,
   isValidObjId,
   validateBody(updateFavoriteSchema),
   updateContactStatus

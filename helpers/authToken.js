@@ -1,6 +1,6 @@
 // Імпорт моделі і бібілотек
-import HttpError from "./HttpError";
-import { User } from "../models/userModel";
+import HttpError from "./HttpError.js";
+import { User } from "../models/userModel.js";
 import jwt from "jsonwebtoken";
 import "dotenv/config";
 // Ключ токену

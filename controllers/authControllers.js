@@ -1,11 +1,11 @@
 // Імпорт функцій
-import HttpError from "../helpers/HttpError";
+import HttpError from "../helpers/HttpError.js";
 import {
   userSignIn,
   userSignUp,
   userLogOut,
   userSubscription,
-} from "../services/authServices";
+} from "../services/authServices.js";
 // Реєєстрація користувача
 export const register = async (req, res, next) => {
   try {
