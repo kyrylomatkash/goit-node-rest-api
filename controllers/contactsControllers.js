@@ -1,5 +1,5 @@
 // Імпорт функцій
-import HttpError from "../helpers/HttpError.js";
+import HttpError from "../middlewares/HttpError.js";
 import {
   addContact,
   getContactById,

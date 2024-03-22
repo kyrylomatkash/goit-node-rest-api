@@ -28,6 +28,7 @@ app.use(morgan("tiny"));
 app.use(cors());
 app.use(express.json());
 // Роути
+app.use("/avatars", express.static("public/avatars"));
 app.use("/api/contacts", contactsRoute);
 app.use("/users", authRoute);
 // Показ помилок статусу відповіді

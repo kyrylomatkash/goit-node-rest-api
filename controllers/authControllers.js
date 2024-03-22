@@ -1,11 +1,19 @@
 // Імпорт функцій
-import HttpError from "../helpers/HttpError.js";
+import HttpError from "../middlewares/HttpError.js";
 import {
   userSignIn,
   userSignUp,
   userLogOut,
   userSubscription,
+  userAvatar,
 } from "../services/authServices.js";
+import path, { dirname } from "path";
+import { fileURLToPath } from "url";
+import Jimp from "jimp";
+// Шлях до файлів
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const avatars_dir = path.join(__dirname, "../", "public", "avatars");
 // Реєєстрація користувача
 export const register = async (req, res, next) => {
   try {
@@ -67,4 +75,23 @@ export const updateSubscriptionStatus = async (req, res, next) => {
 export const getCurrentUser = async (req, res) => {
   const { email, subscription } = req.user;
   res.status(200).json({ email, subscription });
+};
+// Оновлення аватару
+export const updateAvatar = async (req, res, next) => {
+  try {
+    const { _id } = req.user;
+    const { path: tmpUpload, originalname } = req.file;
+    const filename = `${_id}_${originalname}`;
+    const uploadedImage = path.join(avatars_dir, filename);
+    const image = await Jimp.read(tmpUpload);
+    const avatarURL = path.join("avatars", filename);
+    await image.resize(250, 250).writeAsync(uploadedImage);
+    await userAvatar(_id, avatarURL);
+    res.status(200).json({ avatarURL });
+  } catch (error) {
+    console.log(
+      "Something went wrong during this action. Check file extension or size and try again."
+    );
+    next(error);
+  }
 };

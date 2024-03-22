@@ -3,6 +3,7 @@ import { User } from "../models/userModel.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import "dotenv/config";
+import gravatar from "gravatar";
 // Ключ токену
 const { JWTSECRETKEY } = process.env;
 // Створення користувача
@@ -10,11 +11,19 @@ async function userSignUp(data) {
   const { email, password } = data;
   const hashPassword = await bcrypt.hash(password, 10);
   const user = await User.findOne({ email });
+  const avatarURL = gravatar.url(email);
+
   if (!user) {
-    const createUser = await User.create({ ...data, password: hashPassword });
+    const createUser = await User.create({
+      ...data,
+      password: hashPassword,
+      avatarURL,
+    });
     return createUser;
   } else {
-    throw new Error("Email already in use", { status: 409 });
+    const error = new Error("Email already in use");
+    error.status = 409;
+    throw error;
   }
 }
 // Вхід користувача
@@ -54,5 +63,9 @@ async function userSubscription(_id, data) {
   ).select("Enter subscription");
   return result;
 }
+// Аватар користувача
+async function userAvatar(id, avatarURL) {
+  await User.findByIdAndUpdate(id, { avatarURL });
+}
 // Експорт
-export { userSignIn, userSignUp, userLogOut, userSubscription };
+export { userSignIn, userSignUp, userLogOut, userSubscription, userAvatar };
