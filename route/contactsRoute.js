@@ -8,14 +8,14 @@ import {
   updateContact,
   updateContactStatus,
 } from "../controllers/contactsControllers.js";
-import validateBody from "../helpers/validateBody.js";
+import validateBody from "../middlewares/validateBody.js";
 import {
   createContactSchema,
   updateContactSchema,
   updateFavoriteSchema,
 } from "../schemas/contactsSchemas.js";
-import isValidObjId from "../helpers/IDvalidate.js";
-import { authToken } from "../helpers/authToken.js";
+import isValidObjId from "../middlewares/IDvalidate.js";
+import { authToken } from "../middlewares/authToken.js";
 // Роутинг для API
 const contactsRoute = express.Router();
 

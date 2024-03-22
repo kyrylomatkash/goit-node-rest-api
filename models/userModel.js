@@ -1,6 +1,6 @@
 // Імпорт бібліотек
 import { Schema, model } from "mongoose";
-import { DBerror } from "../helpers/dberror.js";
+import { DBerror } from "../middlewares/dberror.js";
 // Схема користувача
 const userSchema = new Schema(
   {
@@ -22,6 +22,7 @@ const userSchema = new Schema(
       type: String,
       default: null,
     },
+    avatarURL: String,
   },
   { versionKey: false }
 );

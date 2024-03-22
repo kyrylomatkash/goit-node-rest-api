@@ -1,6 +1,6 @@
 // Імпорт бібліотек
 import { Schema, model } from "mongoose";
-import { DBerror } from "../helpers/dberror.js";
+import { DBerror } from "../middlewares/dberror.js";
 // Схема контакту
 const contactSchema = new Schema(
   {
