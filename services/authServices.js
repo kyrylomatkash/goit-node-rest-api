@@ -10,11 +10,17 @@ async function userSignUp(data) {
   const { email, password } = data;
   const hashPassword = await bcrypt.hash(password, 10);
   const user = await User.findOne({ email });
+
   if (!user) {
-    const createUser = await User.create({ ...data, password: hashPassword });
+    const createUser = await User.create({
+      ...data,
+      password: hashPassword,
+    });
     return createUser;
   } else {
-    throw new Error("Email already in use", { status: 409 });
+    const error = new Error("Email already in use");
+    error.status = 409;
+    throw error;
   }
 }
 // Вхід користувача
