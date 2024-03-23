@@ -1,41 +1,46 @@
 // Імпорт моделі
 import { Contact } from "../models/contactModel.js";
 // Читання списку контактів
-async function listContacts() {
-  const data = await Contact.find();
-  return data;
+async function listContacts(userId) {
+  const contactList = await Contact.find({ owner: userId });
+  return contactList;
 }
 // Отримання контакту по ID
-async function getContactById(id) {
-  const result = await Contact.findById(id);
-  return result;
+async function getContactById(id, userId) {
+  const contactWithID = await Contact.findOne({ _id: id, owner: userId });
+  return contactWithID;
 }
 // Оновлення контакту по ID
-async function updateById(id, data) {
-  const result = await Contact.findByIdAndUpdate(id, data, {
-    new: true,
-  });
-  return result;
+async function updateById(id, userId, data) {
+  const updatedContact = await Contact.findOneAndUpdate(
+    { _id: id, owner: userId },
+    data,
+    { new: true }
+  );
+  return updatedContact;
 }
 // Видалення контакту
-async function removeContact(id) {
-  const result = await Contact.findByIdAndDelete(id);
-  return result;
+async function removeContact(id, userId) {
+  const removedContact = await Contact.findOneAndDelete({
+    _id: id,
+    owner: userId,
+  });
+  return removedContact;
 }
 // Додавання контакту
-async function addContact(data) {
-  const newContact = await Contact.create(data);
+async function addContact(data, userId) {
+  const newContact = await Contact.create({ ...data, owner: userId });
   return newContact;
 }
 // Оновлення статусу контакту
-async function updateContactFavoriteStatus(id, data) {
+async function updateContactFavoriteStatus(id, userId, data) {
   const { favorite } = data;
-  const result = await Contact.findByIdAndUpdate(
-    id,
+  const updatedFavoriteStatus = await Contact.findOneAndUpdate(
+    { _id: id, owner: userId },
     { favorite },
     { new: true }
   );
-  return result;
+  return updatedFavoriteStatus;
 }
 // Експорт функцій
 export {
