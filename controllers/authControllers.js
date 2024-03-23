@@ -29,7 +29,7 @@ export const register = async (req, res, next) => {
     if (error.status !== 409) {
       next(error);
     } else {
-      next(HttpError(409, "Email in use"));
+      next(HttpError(409, "Email already in use"));
     }
   }
 };
