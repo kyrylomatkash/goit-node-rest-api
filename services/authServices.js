@@ -17,7 +17,7 @@ async function userSignUp(data) {
     const createUser = await User.create({
       ...data,
       password: hashPassword,
-      avatarURL,
+      avatarURL: avatarURL,
     });
     return createUser;
   } else {
