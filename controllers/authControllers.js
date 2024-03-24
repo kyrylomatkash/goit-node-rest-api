@@ -6,6 +6,8 @@ import {
   userLogOut,
   userSubscription,
   userAvatar,
+  verificationEmail,
+  resendVerificationEmail,
 } from "../services/authServices.js";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
@@ -92,6 +94,32 @@ export const updateAvatar = async (req, res, next) => {
     console.log(
       "Something went wrong during this action. Check file extension or size and try again."
     );
+    next(error);
+  }
+};
+// Підтвердження електронної пошти
+export const verifyEmail = async (req, res, next) => {
+  try {
+    const { verificationToken } = req.params;
+    await verificationEmail(verificationToken);
+
+    res
+      .status(200)
+      .json({ message: "Verification successful. Thanks for join us!" });
+  } catch (error) {
+    next(error);
+  }
+};
+// Повторний лист з підтвердженням
+export const resendVerifyEmail = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+    await resendVerificationEmail(email);
+
+    res
+      .status(200)
+      .json({ message: "Verification email sent. Check your email inbox" });
+  } catch (error) {
     next(error);
   }
 };

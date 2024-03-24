@@ -4,7 +4,7 @@ import Joi from "joi";
 // Схема для реєстрації користувача
 export const registerSchema = Joi.object({
   email: Joi.string()
-    .email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } })
+    .email({ minDomainSegments: 2, tlds: { allow: ["com", "net", "ua"] } })
     .required()
     .label("Enter your email")
     .messages({
@@ -24,7 +24,7 @@ export const registerSchema = Joi.object({
 // Схема для логіну користувача
 export const loginSchema = Joi.object({
   email: Joi.string()
-    .email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } })
+    .email({ minDomainSegments: 2, tlds: { allow: ["com", "net", "ua"] } })
     .required()
     .label("Email")
     .messages({
