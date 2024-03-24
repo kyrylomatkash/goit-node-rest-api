@@ -14,7 +14,7 @@ import Jimp from "jimp";
 // Шлях до файлів
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const avatars_dir = path.join(__dirname, "..", "public", "avatars");
+const avatars_dir = path.join(__dirname, "../", "public", "avatars");
 // Реєєстрація користувача
 export const register = async (req, res, next) => {
   try {
