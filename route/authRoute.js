@@ -12,6 +12,8 @@ import {
   register,
   updateAvatar,
   updateSubscriptionStatus,
+  verifyEmail,
+  resendVerifyEmail,
 } from "../controllers/authControllers.js";
 import { authToken } from "../middlewares/authToken.js";
 import { upload } from "../middlewares/upload.js";
@@ -29,5 +31,7 @@ authRoute.patch(
   updateSubscriptionStatus
 );
 authRoute.patch("/avatars", authToken, upload.single("avatar"), updateAvatar);
+authRoute.get("/verify/:verificationToken", verifyEmail);
+authRoute.post("/verify", resendVerifyEmail);
 
 export default authRoute;
