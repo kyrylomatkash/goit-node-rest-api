@@ -105,15 +105,15 @@ export const verifyEmail = async (req, res, next) => {
     const { verificationToken } = req.params;
     await verificationEmail(verificationToken);
 
-    res
-      .status(200)
-      .json({ message: "Verification successful. Thanks for join us!" });
+    res.status(200).json({
+      message: "Verification settled successfully. Thanks for join us!",
+    });
   } catch (error) {
     next(error);
   }
 };
 // Повторний лист з підтвердженням
-export const resendVerifyEmail = async (req, res, next) => {
+export const resendEmail = async (req, res, next) => {
   try {
     const { email } = req.body;
     await resendVerificationEmail(email);
