@@ -7,6 +7,7 @@ import {
   userSubscription,
   userAvatar,
 } from "../services/authServices.js";
+import fs from "fs/promises";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 import Jimp from "jimp";
