@@ -21,8 +21,10 @@ export const register = async (req, res, next) => {
   try {
     const result = await userSignUp(req.body);
     if (result) {
-      const { email, subscription } = result;
-      const NewUser = { user: { email, subscription } };
+      const { email, subscription, avatarURL } = result;
+      const NewUser = {
+        user: { email, subscription, avatarURL },
+      };
       res.status(201).json(NewUser);
     } else {
       throw HttpError(404);
@@ -31,7 +33,7 @@ export const register = async (req, res, next) => {
     if (error.status !== 409) {
       next(error);
     } else {
-      next(HttpError(409, "Email in use"));
+      next(HttpError(409, "Email already in use"));
     }
   }
 };

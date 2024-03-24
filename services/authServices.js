@@ -28,6 +28,7 @@ async function userSignUp(data) {
       password: hashPassword,
       avatarURL,
       verificationToken,
+      avatarURL: avatarURL,
     });
     return createUser;
   } else {
