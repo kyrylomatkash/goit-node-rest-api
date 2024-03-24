@@ -19,8 +19,10 @@ export const register = async (req, res, next) => {
   try {
     const result = await userSignUp(req.body);
     if (result) {
-      const { email, subscription } = result;
-      const NewUser = { user: { email, subscription } };
+      const { email, subscription, avatarURL } = result;
+      const NewUser = {
+        user: { email, subscription, avatarURL },
+      };
       res.status(201).json(NewUser);
     } else {
       throw HttpError(404);
