@@ -9,6 +9,7 @@ import {
   verificationEmail,
   resendVerificationEmail,
 } from "../services/authServices.js";
+import fs from "fs/promises";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 import Jimp from "jimp";
@@ -83,6 +84,11 @@ export const getCurrentUser = async (req, res) => {
 // Оновлення аватару
 export const updateAvatar = async (req, res, next) => {
   try {
+    if (!req.file) {
+      return res.status(400).json({
+        error: "File not provided. Please select a file to continue.",
+      });
+    }
     const { _id } = req.user;
     const { path: tmpUpload, originalname } = req.file;
     const filename = `${_id}_${originalname}`;
@@ -91,6 +97,7 @@ export const updateAvatar = async (req, res, next) => {
     const avatarURL = path.join("avatars", filename);
     await image.resize(250, 250).writeAsync(uploadedImage);
     await userAvatar(_id, avatarURL);
+    await fs.unlink(tmpUpload);
     res.status(200).json({ avatarURL });
   } catch (error) {
     console.log(
