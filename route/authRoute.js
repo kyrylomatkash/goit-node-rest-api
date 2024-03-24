@@ -1,3 +1,4 @@
+// Імпорт бібліотек і функцій
 import express from "express";
 import {
   registerSchema,
@@ -6,20 +7,20 @@ import {
 } from "../schemas/userSchemas.js";
 import validateBody from "../middlewares/validateBody.js";
 import {
-  getCurrentUser,
+  register,
   login,
   logout,
-  register,
-  updateAvatar,
   updateSubscriptionStatus,
+  getCurrentUser,
+  updateAvatar,
   verifyEmail,
-  resendVerifyEmail,
+  resendEmail,
 } from "../controllers/authControllers.js";
 import { authToken } from "../middlewares/authToken.js";
 import { upload } from "../middlewares/upload.js";
 
 const authRoute = express.Router();
-
+// Роутинг для API
 authRoute.post("/register", validateBody(registerSchema), register);
 authRoute.post("/login", validateBody(loginSchema), login);
 authRoute.post("/logout", authToken, logout);
@@ -32,6 +33,6 @@ authRoute.patch(
 );
 authRoute.patch("/avatars", authToken, upload.single("avatar"), updateAvatar);
 authRoute.get("/verify/:verificationToken", verifyEmail);
-authRoute.post("/verify", resendVerifyEmail);
-
+authRoute.post("/verify", resendEmail);
+// Експорт
 export default authRoute;
